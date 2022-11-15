@@ -5,93 +5,93 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 
-class MainActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("MainActivity","onCreate")
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_detail)
     }
 
     override fun onPause() {
         super.onPause()
-        Log.e("MainActivity","onPause")
+        Log.e("DetailActivity","onPause")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.e("MainActivity","onStart")
+        Log.e("DetailActivity","onStart")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.e("MainActivity","onStop")
+        Log.e("DetailActivity","onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e("MainActivity","onDestroy")
+        Log.e("DetailActivity","onDestroy")
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
-        Log.e("MainActivity","onSaveInstanceState PersistableBundle")
+        Log.e("DetailActivity","onSaveInstanceState PersistableBundle")
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log.e("MainActivity","onSaveInstanceState")
+        Log.e("DetailActivity","onSaveInstanceState")
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        Log.e("MainActivity","onRestoreInstanceState")
+        Log.e("DetailActivity","onRestoreInstanceState")
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onRestoreInstanceState(savedInstanceState, persistentState)
-        Log.e("MainActivity","onRestoreInstanceState PersistableBundle")
+        Log.e("DetailActivity","onRestoreInstanceState PersistableBundle")
     }
 
     override fun onPostResume() {
         super.onPostResume()
-        Log.e("MainActivity","onPostResume")
+        Log.e("DetailActivity","onPostResume")
     }
 
     override fun onRestart() {
         super.onRestart()
-        Log.e("MainActivity","onRestart")
+        Log.e("DetailActivity","onRestart")
     }
 
 
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
         super.onTopResumedActivityChanged(isTopResumedActivity)
-        Log.e("MainActivity","onTopResumedActivityChanged")
+        Log.e("DetailActivity","onTopResumedActivityChanged")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        Log.e("MainActivity","onLowMemory")
+        Log.e("DetailActivity","onLowMemory")
     }
 
     override fun onCreateDescription(): CharSequence? {
         return super.onCreateDescription()
-        Log.e("MainActivity","onCreateDescription")
+        Log.e("DetailActivity","onCreateDescription")
     }
 
 
     override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onPostCreate(savedInstanceState, persistentState)
-        Log.e("MainActivity","onPostCreate")
+        Log.e("DetailActivity","onPostCreate")
     }
 
     override fun onContentChanged() {
         super.onContentChanged()
-        Log.e("MainActivity","onContentChanged")
+        Log.e("DetailActivity","onContentChanged")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        Log.e("MainActivity","onTrimMemory")
+        Log.e("DetailActivity","onTrimMemory")
     }
+
 
 }

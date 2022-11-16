@@ -1,15 +1,37 @@
 package com.example.androidperformanceoptimization
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var backendApi: BackendApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("MainActivity","onCreate")
         setContentView(R.layout.activity_main)
+
+        // launching a new coroutine
+        GlobalScope.launch {
+            val result = backendApi.getcategories()
+            if (result != null)
+            // Checking the results
+                withContext(Dispatchers.Main)
+                {
+                    Log.e("MainActivityresult", result.body().toString())
+                }
+        }
+      //  startActivity(Intent(this@MainActivity,DetailActivity::class.java))
     }
 
     override fun onPause() {

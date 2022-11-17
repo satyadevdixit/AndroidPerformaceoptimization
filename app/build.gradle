@@ -1,20 +1,18 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.dagger.hilt.android'
+
 android {
     def properties = new Properties()
     properties.load(new FileInputStream(rootProject.file("local.properties")))
 
     namespace 'com.example.androidperformanceoptimization'
     compileSdk 33
-    ext.hilt_version = '2.40.1'
+
 
     defaultConfig {
         applicationId "com.example.androidperformanceoptimization"
@@ -45,6 +43,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -64,6 +66,9 @@ dependencies {
     implementation "com.squareup.picasso:picasso:2.8"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation('androidx.lifecycle:lifecycle-runtime-ktx:2.4.0')
+    implementation('androidx.lifecycle:lifecycle-livedata-ktx:2.4.0')
 
     // Room
     implementation "androidx.room:room-runtime:2.4.3"
@@ -80,6 +85,7 @@ dependencies {
     def hilt_version="2.44"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
 
 
     // For instrumentation tests

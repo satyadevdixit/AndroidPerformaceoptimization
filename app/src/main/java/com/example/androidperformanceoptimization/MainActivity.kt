@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import com.example.example.Categoriespojo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,24 +17,14 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     @Inject
-    lateinit var backendApi: BackendApi
+     lateinit var categoryViewModel: CategoryViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("MainActivity","onCreate")
         setContentView(R.layout.activity_main)
-
-        // launching a new coroutine
-        GlobalScope.launch {
-            val result = backendApi.getcategories()
-            if (result != null)
-            // Checking the results
-                withContext(Dispatchers.Main)
-                {
-                    Log.e("MainActivityresult", result.body().toString())
-                }
-        }
-      //  startActivity(Intent(this@MainActivity,DetailActivity::class.java))
+        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer { it-> Log.e("MainactivityObser",it.toString())}) }
     }
 
     override fun onPause() {

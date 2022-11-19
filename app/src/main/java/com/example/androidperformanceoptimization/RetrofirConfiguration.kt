@@ -1,8 +1,12 @@
 package com.example.androidperformanceoptimization
 
+import android.content.Context
+import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -24,9 +28,9 @@ class RetrofirConfiguration @Inject constructor(){
 
         @Singleton
         @Provides
-        fun provideretrofitobject(okHttpClient: OkHttpClient): Retrofit {
+        fun provideretrofitobject(okHttpClient: OkHttpClient,@ApplicationContext context: Context): Retrofit {
 
-            return Retrofit.Builder().baseUrl("https://developers.zomato.com/api/v2.1/")
+            return Retrofit.Builder().baseUrl(context.resources.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                .client(okHttpClient)
                 // we need to add converter factory to

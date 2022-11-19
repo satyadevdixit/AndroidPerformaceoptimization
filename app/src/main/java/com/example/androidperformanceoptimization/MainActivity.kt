@@ -20,11 +20,16 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
      lateinit var categoryViewModel: CategoryViewModel
+     @Inject
+     lateinit var dummy: dummy
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.e("MainActivity","onCreate")
         setContentView(R.layout.activity_main)
         lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer { it-> Log.e("MainactivityObser",it.toString())}) }
+
+        Log.e("Mainactivitydummy",dummy.backendApi.toString())
+
     }
 
     override fun onPause() {

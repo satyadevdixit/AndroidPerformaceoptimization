@@ -18,13 +18,8 @@ import javax.inject.Inject
 
 //@HiltViewModel
 class CategoryViewModel @Inject constructor(context:Application) : AndroidViewModel(context)  {
-
-    @Inject
-    lateinit var backendApi: BackendApi
     @Inject
     lateinit var categoryRepository: CategoryRepository
-   private lateinit var categorydata: MutableLiveData<Categoriespojo>
-
 
 suspend fun getCategory():MutableLiveData<Categoriespojo>
 {
@@ -33,6 +28,7 @@ return categoryRepository.getcategorydata()
 
     override fun onCleared() {
         super.onCleared()
+
         Log.e("CategoryViewModel","onCleared" )
     }
 }

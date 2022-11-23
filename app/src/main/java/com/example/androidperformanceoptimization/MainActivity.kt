@@ -26,11 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.e("MainActivity","onCreate")
         setContentView(R.layout.activity_main)
-        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer { it-> Log.e("MainactivityObser",it.toString())}) }
-
-        Log.e("Mainactivitydummy",dummy.backendApi.toString())
-
-    }
+        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer { it-> Log.e("MainactivityObser",it.toString())}) }}
 
     override fun onPause() {
         super.onPause()
@@ -113,5 +109,6 @@ class MainActivity : AppCompatActivity() {
         super.onTrimMemory(level)
         Log.e("MainActivity","onTrimMemory")
     }
+
 
 }

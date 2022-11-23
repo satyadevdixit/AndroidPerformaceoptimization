@@ -1,9 +1,10 @@
-package com.example.androidperformanceoptimization
+package com.example.androidperformanceoptimization.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import com.example.androidperformanceoptimization.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

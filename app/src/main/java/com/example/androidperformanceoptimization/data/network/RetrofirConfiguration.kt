@@ -1,17 +1,16 @@
-package com.example.androidperformanceoptimization
+package com.example.androidperformanceoptimization.data.network
 
 import android.content.Context
-import android.content.res.Resources
+import com.example.androidperformanceoptimization.R
+import com.example.androidperformanceoptimization.data.network.interceptor.RetrofitInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -40,7 +39,7 @@ class RetrofirConfiguration @Inject constructor(){
 
     @Singleton
     @Provides
-    fun getCategoryapi(retrofit: Retrofit):BackendApi{
+    fun getCategoryapi(retrofit: Retrofit): BackendApi {
         return retrofit.create(BackendApi::class.java)
     }
 

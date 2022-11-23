@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.example.Categoriespojo
@@ -18,10 +17,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 //@HiltViewModel
-class CategoryViewModel @Inject constructor(val context:Application) : AndroidViewModel(context)  {
+class CategoryViewModel @Inject constructor(context:Application) : AndroidViewModel(context)  {
     @Inject
     lateinit var categoryRepository: CategoryRepository
- private   var value = MutableLiveData(10)
 
 suspend fun getCategory():MutableLiveData<Categoriespojo>
 {
@@ -33,5 +31,4 @@ return categoryRepository.getcategorydata()
 
         Log.e("CategoryViewModel","onCleared" )
     }
-
 }

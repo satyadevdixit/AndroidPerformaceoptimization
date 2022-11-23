@@ -1,4 +1,4 @@
-package com.example.androidperformanceoptimization
+package com.example.androidperformanceoptimization.data.network.interceptor
 
 import android.util.Log
 import okhttp3.Interceptor

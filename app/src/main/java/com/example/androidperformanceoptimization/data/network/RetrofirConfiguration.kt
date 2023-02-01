@@ -6,6 +6,9 @@ import com.example.androidperformanceoptimization.data.network.interceptor.Retro
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ViewComponent
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
@@ -18,14 +21,14 @@ import javax.inject.Singleton
 @Module
 class RetrofirConfiguration @Inject constructor(){
 
-    @Singleton
+@Singleton
     @Provides
     fun provideokttp(retrofitInterceptor: RetrofitInterceptor):OkHttpClient
     {
         return OkHttpClient.Builder().addInterceptor(retrofitInterceptor).build()
     }
 
-        @Singleton
+@Singleton
         @Provides
         fun provideretrofitobject(okHttpClient: OkHttpClient,@ApplicationContext context: Context): Retrofit {
 
@@ -37,7 +40,7 @@ class RetrofirConfiguration @Inject constructor(){
                 .build()
         }
 
-    @Singleton
+@Singleton
     @Provides
     fun getCategoryapi(retrofit: Retrofit): BackendApi {
         return retrofit.create(BackendApi::class.java)

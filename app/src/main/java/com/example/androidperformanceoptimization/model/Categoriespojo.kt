@@ -1,10 +1,10 @@
 package com.example.androidperformanceoptimization.model
 
-import com.example.androidperformanceoptimization.model.CategoriesItempojo
+import com.google.gson.annotations.SerializedName
 
 
 data class Categoriespojo (
 
- var categories : ArrayList<CategoriesItempojo> = arrayListOf()
+ @SerializedName("categories") var categories : ArrayList<Categoryitempojo> = arrayListOf()
 
 )

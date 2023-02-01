@@ -4,16 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.example.Categoriespojo
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.example.androidperformanceoptimization.data.network.repo.CategoryRepository
+import com.example.androidperformanceoptimization.model.Categoriespojo
 import javax.inject.Inject
 
 //@HiltViewModel
@@ -23,6 +15,14 @@ class CategoryViewModel @Inject constructor(context:Application) : AndroidViewMo
 
 suspend fun getCategory():MutableLiveData<Categoriespojo>
 {
+    if (this::categoryRepository.isInitialized)
+    {
+Log.e("CategoryViewModel","Initialized")
+    }
+    else
+    {
+        Log.e("CategoryViewModel","not Initialized")
+    }
 return categoryRepository.getcategorydata()
 }
 

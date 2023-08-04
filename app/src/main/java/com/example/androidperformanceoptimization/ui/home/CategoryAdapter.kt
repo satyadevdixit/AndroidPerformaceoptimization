@@ -11,7 +11,7 @@ import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
 import com.example.androidperformanceoptimization.model.Categoryitempojo
 
 //AsyncDifferConfig.Builder<Item>(DiffCallback()).build()
-class CategoryAdapter(val categorylist:MutableList<Categoryitempojo>): RecyclerView.Adapter<ViewHolder>() {
+class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>): RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = categorylist.get(position)
@@ -46,8 +46,8 @@ class CategoryAdapter(val categorylist:MutableList<Categoryitempojo>): RecyclerV
 
 class ViewHolder(var binding: ListItemBinding):androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 {
-fun bind(categoriesItempojo: Categoryitempojo)
+fun bind(categoriesItempojo: CategoriesDetailpojo)
 {
-    binding.category = categoriesItempojo.item
+    binding.category = categoriesItempojo
 }
 }

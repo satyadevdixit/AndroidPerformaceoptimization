@@ -40,6 +40,7 @@ class RetrofirConfiguration @Inject constructor(){
                 .build()
         }
 
+
 @Singleton
     @Provides
     fun getCategoryapi(retrofit: Retrofit): BackendApi {

@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 
 data class Categoriespojo (
 
- @SerializedName("categories") var categories : ArrayList<Categoryitempojo> = arrayListOf()
+ @SerializedName("data") var categories : ArrayList<CategoriesDetailpojo> = arrayListOf()
 
 )

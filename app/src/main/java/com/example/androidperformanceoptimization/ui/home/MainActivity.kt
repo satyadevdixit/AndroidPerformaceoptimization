@@ -6,13 +6,11 @@ import android.os.PersistableBundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.androidperformanceoptimization.CategoryViewModel
+import com.example.androidperformanceoptimization.viewmodel.CategoryViewModel
 import com.example.androidperformanceoptimization.R
+
 import com.example.androidperformanceoptimization.databinding.ActivityMainBinding
 import com.example.androidperformanceoptimization.model.Categoriespojo
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_main)
        // categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer {it:Categoriespojo ->
-            val categoryAdapter:CategoryAdapter = CategoryAdapter(it.categories.toMutableList())
+            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList())
             binding.rvItem.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
             binding.rvItem.adapter = categoryAdapter
             Log.e("MainactivityObser",it.toString())

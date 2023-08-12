@@ -1,4 +1,4 @@
-package com.example.androidperformanceoptimization
+package com.example.androidperformanceoptimization.viewmodel
 
 import android.app.Application
 import android.util.Log

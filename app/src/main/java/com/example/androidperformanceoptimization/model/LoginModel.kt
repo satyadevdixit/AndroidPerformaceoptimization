@@ -1,4 +1,3 @@
 package com.example.androidperformanceoptimization.model
 
-class LoginModel {
-}
+data class LoginModel(val userEmailId:String, val UserPassword:String)

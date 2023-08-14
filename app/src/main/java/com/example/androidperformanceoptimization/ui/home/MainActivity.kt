@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_main)
        // categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
         lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer {it:Categoriespojo ->
-            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList())
+            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList(),this@MainActivity)
             binding.rvItem.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
             binding.rvItem.adapter = categoryAdapter
             Log.e("MainactivityObser",it.toString())

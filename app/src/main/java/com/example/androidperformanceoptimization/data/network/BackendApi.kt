@@ -1,6 +1,7 @@
 package com.example.androidperformanceoptimization.data.network
 
 import com.example.androidperformanceoptimization.model.Categoriespojo
+import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -10,4 +11,7 @@ public interface BackendApi {
    // @Headers("user-key: dac11f22c358c06a8d66f10255ea1dd2")
     @GET("countries/currency/")
     suspend fun getcategories(): Response<Categoriespojo>
+
+  @GET("countries/population/cities")
+  suspend fun getPopulationCities(): Response<PopulationCitiesListPojo>
 }

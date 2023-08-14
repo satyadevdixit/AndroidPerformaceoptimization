@@ -1,17 +1,18 @@
 package com.example.androidperformanceoptimization.ui.home
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.androidperformanceoptimization.databinding.ListItemBinding
 import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
-import com.example.androidperformanceoptimization.model.Categoryitempojo
 
 //AsyncDifferConfig.Builder<Item>(DiffCallback()).build()
-class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>): RecyclerView.Adapter<ViewHolder>() {
+class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>,val context: Context): RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = categorylist.get(position)
@@ -22,11 +23,10 @@ class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>): Recyc
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding =
             ListItemBinding.inflate(layoutInflater, parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding,context)
     }
 
     override fun getItemCount(): Int {
-
         Log.e("categoryAdapter",categorylist.size.toString())
       return  categorylist.size
     }
@@ -37,17 +37,26 @@ class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>): Recyc
             val payload: Bundle =
                 payloads.get(position) as Bundle//?.let {it: android.os.Bundle ->it.getString(CategoryDifutil.ARG_DONE)}
             if (payload.getString(CategoryDifutil.ARG_DONE) != null) {
-                holder.binding.item.setText(payload.getString(CategoryDifutil.ARG_DONE))
+                holder.binding.textViewName.setText(payload.getString(CategoryDifutil.ARG_DONE))
             }
         }
     }
 }
 
 
-class ViewHolder(var binding: ListItemBinding):androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
+
+class ViewHolder(var binding: ListItemBinding,val context: Context):androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 {
 fun bind(categoriesItempojo: CategoriesDetailpojo)
 {
     binding.category = categoriesItempojo
+    binding.layoutCategoryListItem.setOnClickListener { val intent:Intent = Intent(context,DetailActivity::class.java)
+        intent.putExtra("index",bindingAdapterPosition)
+    context.startActivity(intent)
+    }
+
+    binding.buttonAddCountyList.setOnClickListener { binding.textViewCount.setText((++categoriesItempojo.count).toString())}
+    binding.buttonMinusCountryList.setOnClickListener { binding.textViewCount.setText((--categoriesItempojo.count).toString()) }
+
 }
 }

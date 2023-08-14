@@ -11,7 +11,7 @@ import com.example.androidperformanceoptimization.viewmodel.LoginViewModel
 class LoginActiviy : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_activiy)
+      //  setContentView(R.layout.activity_login_activiy)
         val loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val dataBinding:ActivityLoginActiviyBinding = DataBindingUtil.setContentView(this,R.layout.activity_login_activiy)
         dataBinding.loginviewmodel = loginViewModel

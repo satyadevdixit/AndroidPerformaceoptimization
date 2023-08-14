@@ -1,17 +1,42 @@
 package com.example.androidperformanceoptimization.ui.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.androidperformanceoptimization.R
+import com.example.androidperformanceoptimization.databinding.ActivityDetailBinding
+import com.example.androidperformanceoptimization.databinding.ActivityMainBinding
+import com.example.androidperformanceoptimization.model.Categoriespojo
+import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
+import com.example.androidperformanceoptimization.viewmodel.CategoryViewModel
+import com.example.androidperformanceoptimization.viewmodel.LoginViewModel
+import com.example.androidperformanceoptimization.viewmodel.PopulationCitiesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var populationCitiesViewModel: PopulationCitiesViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+       val binding : ActivityDetailBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_detail)
+        lifecycleScope.launch { populationCitiesViewModel.getPopulationCities().observe(this@DetailActivity,{it:PopulationCitiesListPojo->
+            populationCitiesViewModel.setData(it.populationCitiesList[intent.getIntExtra("index",0)].city,it.populationCitiesList[intent.getIntExtra("index",0)].country)
+        })
+         }
+        binding.detail = populationCitiesViewModel
+        binding.lifecycleOwner = this
     }
 
     override fun onPause() {

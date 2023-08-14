@@ -33,7 +33,7 @@ class LoginViewModelTest {
     fun validLoginCredentialsMatchOrNot()
     {
     //  val  loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
-        val result = loginViewModel.validateLoginCredentials("gmail.co","password")
+        val result = loginViewModel.validateLoginCredentials("gmail.com","password")
         assertTrue(result)
     }
 

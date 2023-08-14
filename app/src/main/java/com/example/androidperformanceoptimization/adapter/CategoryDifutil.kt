@@ -2,10 +2,11 @@ package com.example.androidperformanceoptimization.ui.home
 
 import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
-import com.example.androidperformanceoptimization.model.Categoryitempojo
+import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
+import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
 
 
-class CategoryDifutil(val newlist:List<Categoryitempojo>, val oldlist:List<Categoryitempojo>): DiffUtil.Callback(){
+class CategoryDifutil(val newlist:List<CategoriesDetailpojo>, val oldlist:List<CategoriesDetailpojo>): DiffUtil.Callback(){
 
     companion object{
          val ARG_DONE = "arg.done"
@@ -20,23 +21,23 @@ class CategoryDifutil(val newlist:List<Categoryitempojo>, val oldlist:List<Categ
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldlist[oldItemPosition].item.id == newlist[newItemPosition].item.id
+        return oldlist[oldItemPosition].id == newlist[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return when{
-            oldlist[oldItemPosition].item.id==newlist[newItemPosition].item.id ->true
-            oldlist[oldItemPosition].item.name == newlist[newItemPosition].item.name ->true
+            oldlist[oldItemPosition].id==newlist[newItemPosition].id ->true
+            oldlist[oldItemPosition].name == newlist[newItemPosition].name ->true
             else -> false
         }
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        if (oldlist[oldItemPosition].item.name == newlist[newItemPosition].item.name) {
+        if (oldlist[oldItemPosition].name == newlist[newItemPosition].name) {
            return super.getChangePayload(oldItemPosition, newItemPosition)
         } else {
             val diff = Bundle()
-            diff.putString(ARG_DONE, newlist[newItemPosition].item.name)
+            diff.putString(ARG_DONE, newlist[newItemPosition].name)
         }
         return super.getChangePayload(oldItemPosition, newItemPosition)
     }

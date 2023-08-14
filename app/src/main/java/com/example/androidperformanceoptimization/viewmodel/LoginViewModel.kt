@@ -28,6 +28,9 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
          {
               Toast.makeText(context,"Invalid Credentials OR Please enter Credentials",Toast.LENGTH_SHORT).show()
          }
+        val intent = Intent(context,MainActivity::class.java)
+        intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
+        context.startActivity(intent)
     }
 
 

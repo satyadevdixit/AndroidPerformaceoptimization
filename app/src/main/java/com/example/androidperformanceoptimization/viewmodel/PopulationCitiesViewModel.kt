@@ -20,10 +20,13 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
    var city = MutableLiveData<String>()
    var country = MutableLiveData<String>()
 
-   suspend fun getPopulationCities():MutableLiveData<PopulationCitiesListPojo>
+   suspend fun getPopulationCities(testOrNot:Boolean):MutableLiveData<PopulationCitiesListPojo>
    {
       if (this::categoryRepository.isInitialized)
       {
+         if (testOrNot)
+            return createDummyData()
+         else
          return categoryRepository.getPopulationCitesCount()
          Log.e("CategoryViewModel","Initialized")
       }
@@ -31,7 +34,6 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
       {
          Log.e("CategoryViewModel","not Initialized")
       }
-
         return MutableLiveData<PopulationCitiesListPojo>()
    }
 
@@ -42,6 +44,18 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
       country.value = countryName
    }
 
+fun createDummyData():MutableLiveData<PopulationCitiesListPojo>
+   {
+   val list = arrayListOf<PopulationCitiesPojo>()
+   val populatonData = MutableLiveData<PopulationCitiesListPojo>()
+   val populatonData1 = MutableLiveData<PopulationCitiesListPojo>()
+      val populationCountDetail = PopulationCountDetail()
+val populationCitiesPojo = PopulationCitiesPojo("Palwal","India", arrayListOf())
+      val populationCitiesListPojo = PopulationCitiesListPojo(list)
+      list.add(populationCitiesPojo)
+      populatonData.value = populationCitiesListPojo
 
+  return MutableLiveData<PopulationCitiesListPojo>()
+}
 
 }

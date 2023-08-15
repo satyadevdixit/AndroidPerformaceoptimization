@@ -12,7 +12,7 @@ import com.example.androidperformanceoptimization.databinding.ListItemBinding
 import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
 
 //AsyncDifferConfig.Builder<Item>(DiffCallback()).build()
-class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>,val context: Context): RecyclerView.Adapter<ViewHolder>() {
+class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>,val context: Context): RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = categorylist.get(position)
@@ -41,22 +41,39 @@ class CategoryAdapter(val categorylist:MutableList<CategoriesDetailpojo>,val con
             }
         }
     }
+
+
+
+inner class ViewHolder(var binding: ListItemBinding,val context: Context):androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+    fun bind(categoriesItempojo: CategoriesDetailpojo) {
+        binding.category = categoriesItempojo
+        binding.layoutCategoryListItem.setOnClickListener {
+            val intent: Intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("index", bindingAdapterPosition)
+            context.startActivity(intent)
+        }
+
+        binding.buttonAddCountyList.setOnClickListener {
+            if (validateCountvalue(++categoriesItempojo.count, 50, 90))
+                binding.textViewCount.setText((++categoriesItempojo.count).toString())
+        }
+        binding.buttonMinusCountryList.setOnClickListener {
+            if (validateCountvalue(++categoriesItempojo.count, 50, 90))
+                binding.textViewCount.setText((--categoriesItempojo.count).toString())
+        }
+    }
 }
 
-
-
-class ViewHolder(var binding: ListItemBinding,val context: Context):androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
-{
-fun bind(categoriesItempojo: CategoriesDetailpojo)
-{
-    binding.category = categoriesItempojo
-    binding.layoutCategoryListItem.setOnClickListener { val intent:Intent = Intent(context,DetailActivity::class.java)
-        intent.putExtra("index",bindingAdapterPosition)
-    context.startActivity(intent)
+     fun validateCountvalue(
+        currentValue: Int,
+        lowLimitValue: Int,
+        maxLimitValue: Int
+    ): Boolean {
+        if (currentValue > lowLimitValue && currentValue < maxLimitValue)
+            return true
+        else
+            return false
     }
 
-    binding.buttonAddCountyList.setOnClickListener { binding.textViewCount.setText((++categoriesItempojo.count).toString())}
-    binding.buttonMinusCountryList.setOnClickListener { binding.textViewCount.setText((--categoriesItempojo.count).toString()) }
 
-}
 }

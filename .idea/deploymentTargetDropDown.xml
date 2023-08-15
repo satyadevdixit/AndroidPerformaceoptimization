@@ -5,7 +5,13 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="testData()">
+        <State />
+      </entry>
       <entry key="validLoginCredentialsMatchOrNot()">
+        <State />
+      </entry>
+      <entry key="validateCountvalue()">
         <State />
       </entry>
       <entry key="validateLoginCredentials()">

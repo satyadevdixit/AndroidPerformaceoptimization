@@ -11,6 +11,7 @@ import com.example.androidperformanceoptimization.model.Categoriespojo
 import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
 import com.example.androidperformanceoptimization.model.PopulationCitiesPojo
 import com.example.androidperformanceoptimization.model.PopulationCountDetail
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class PopulationCitiesViewModel @Inject constructor(context:Application):AndroidViewModel(context) {
@@ -19,14 +20,12 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
    lateinit var categoryRepository: CategoryRepository
    var city = MutableLiveData<String>()
    var country = MutableLiveData<String>()
+    var ciyList = MutableLiveData<PopulationCitiesListPojo>()
 
    suspend fun getPopulationCities(testOrNot:Boolean):MutableLiveData<PopulationCitiesListPojo>
    {
       if (this::categoryRepository.isInitialized)
       {
-         if (testOrNot)
-            return createDummyData()
-         else
          return categoryRepository.getPopulationCitesCount()
          Log.e("CategoryViewModel","Initialized")
       }
@@ -34,28 +33,36 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
       {
          Log.e("CategoryViewModel","not Initialized")
       }
+
+      if (testOrNot)
+         return createDummyData()
+
         return MutableLiveData<PopulationCitiesListPojo>()
    }
 
 
-   fun setData(cityName:String, countryName:String)
+  suspend fun setData(cityName:String, countryName:String):MutableLiveData<PopulationCitiesListPojo>
    {
       city.value = cityName
       country.value = countryName
+        return createDummyData()
    }
 
-fun createDummyData():MutableLiveData<PopulationCitiesListPojo>
+ fun createDummyData():MutableLiveData<PopulationCitiesListPojo>
    {
-   val list = arrayListOf<PopulationCitiesPojo>()
-   val populatonData = MutableLiveData<PopulationCitiesListPojo>()
-   val populatonData1 = MutableLiveData<PopulationCitiesListPojo>()
-      val populationCountDetail = PopulationCountDetail()
-val populationCitiesPojo = PopulationCitiesPojo("Palwal","India", arrayListOf())
-      val populationCitiesListPojo = PopulationCitiesListPojo(list)
-      list.add(populationCitiesPojo)
-      populatonData.value = populationCitiesListPojo
-
-  return MutableLiveData<PopulationCitiesListPojo>()
+  return ciyList
 }
+
+  suspend  fun setCityListData()
+    {
+        val list = arrayListOf<PopulationCitiesPojo>()
+        val populatonData = MutableLiveData<PopulationCitiesListPojo>()
+        val populatonData1 = MutableLiveData<PopulationCitiesListPojo>()
+        val populationCountDetail = PopulationCountDetail()
+        val populationCitiesPojo = PopulationCitiesPojo("palwal","India", arrayListOf())
+        list.add(populationCitiesPojo)
+        val populationCitiesListPojo = PopulationCitiesListPojo(list)
+        ciyList.value = populationCitiesListPojo
+    }
 
 }

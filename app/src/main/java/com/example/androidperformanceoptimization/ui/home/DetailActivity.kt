@@ -33,7 +33,7 @@ class DetailActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_detail)
         lifecycleScope.launch {populationCitiesViewModel.setData("","")
             populationCitiesViewModel.getPopulationCities(false).observe(this@DetailActivity,{it:PopulationCitiesListPojo->
-        //   populationCitiesViewModel.setData(it.populationCitiesList[intent.getIntExtra("index",0)].city,it.populationCitiesList[intent.getIntExtra("index",0)].country)
+           populationCitiesViewModel.setData(it.populationCitiesList[intent.getIntExtra("index",0)].city,it.populationCitiesList[intent.getIntExtra("index",0)].country)
         })
          }
         binding.detail = populationCitiesViewModel

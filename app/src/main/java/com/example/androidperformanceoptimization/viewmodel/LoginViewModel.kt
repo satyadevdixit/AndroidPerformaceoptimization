@@ -7,7 +7,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.androidperformanceoptimization.ui.home.MainActivity
+import com.example.androidperformanceoptimization.ui.home.RecylerViewActivity
 
 class LoginViewModel(val context: Application) :AndroidViewModel(context), Observable {
 
@@ -20,7 +20,7 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
     {
          if (validateLoginCredentials(userEmailId.value.toString() ,userPassword.value.toString()))
          {
-                val intent = Intent(context,MainActivity::class.java)
+                val intent = Intent(context,RecylerViewActivity::class.java)
              intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
              context.startActivity(intent)
          }
@@ -28,7 +28,7 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
          {
               Toast.makeText(context,"Invalid Credentials OR Please enter Credentials",Toast.LENGTH_SHORT).show()
          }
-        val intent = Intent(context,MainActivity::class.java)
+        val intent = Intent(context,RecylerViewActivity::class.java)
         intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }

@@ -41,12 +41,19 @@ class PopulationCitiesViewModel @Inject constructor(context:Application):Android
    }
 
 
-  suspend fun setData(cityName:String, countryName:String):MutableLiveData<PopulationCitiesListPojo>
+  suspend fun setDataTest(cityName:String, countryName:String):MutableLiveData<PopulationCitiesListPojo>
    {
       city.value = cityName
       country.value = countryName
         return createDummyData()
    }
+
+
+     fun setData(cityName:String, countryName:String)
+    {
+        city.value = cityName
+        country.value = countryName
+    }
 
  fun createDummyData():MutableLiveData<PopulationCitiesListPojo>
    {

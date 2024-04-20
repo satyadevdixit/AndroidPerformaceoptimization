@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class RecylerViewActivity : AppCompatActivity() {
 
      @Inject
      lateinit var categoryViewModel: CategoryViewModel
@@ -29,12 +29,13 @@ class MainActivity : AppCompatActivity() {
         val binding : ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
        // categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
-        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@MainActivity, Observer {it:Categoriespojo ->
-            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList(),this@MainActivity)
-            binding.rvItem.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
+        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@RecylerViewActivity, Observer { it:Categoriespojo ->
+            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList(),this@RecylerViewActivity)
+            binding.rvItem.layoutManager = LinearLayoutManager(this@RecylerViewActivity,LinearLayoutManager.VERTICAL,false)
             binding.rvItem.adapter = categoryAdapter
             Log.e("MainactivityObser",it.toString())
         }) }
+
     }
 
     override fun onPause() {
@@ -100,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateDescription(): CharSequence? {
         return super.onCreateDescription()
-        Log.e("MainActivity","onCreateDescription")
+       // Log.e("MainActivity","onCreateDescription")
     }
 
 

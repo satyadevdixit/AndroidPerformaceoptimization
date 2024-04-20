@@ -3,18 +3,34 @@
   <component name="deploymentTargetDropDown">
     <value>
       <entry key="app">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\devdi\.android\avd\Pixel_8_API_UpsideDownCakePrivacySandbox.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-04-20T17:32:36.909519300Z" />
+        </State>
+      </entry>
+      <entry key="tardown()">
         <State />
       </entry>
       <entry key="testData()">
+        <State />
+      </entry>
+      <entry key="testRecyclerViewData()">
         <State />
       </entry>
       <entry key="validLoginCredentialsMatchOrNot()">
         <State />
       </entry>
       <entry key="validateCountvalue()">
-        <State />
-      </entry>
-      <entry key="validateLoginCredentials()">
         <State />
       </entry>
     </value>

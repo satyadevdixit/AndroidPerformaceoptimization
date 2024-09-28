@@ -49,7 +49,9 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_7_API_TiramisuPrivacySandbox" value="120" />
+                  <entry key="Pixel_8_API_VanillaIceCream" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung SM-N770F" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

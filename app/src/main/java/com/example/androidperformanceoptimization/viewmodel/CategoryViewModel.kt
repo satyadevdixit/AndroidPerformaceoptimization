@@ -28,7 +28,6 @@ return categoryRepository.getcategorydata()
 
     override fun onCleared() {
         super.onCleared()
-
         Log.e("CategoryViewModel","onCleared" )
     }
 }

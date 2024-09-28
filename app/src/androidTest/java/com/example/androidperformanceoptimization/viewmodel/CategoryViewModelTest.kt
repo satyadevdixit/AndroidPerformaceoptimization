@@ -24,30 +24,15 @@ class CategoryViewModelTest(val context: Application) : AndroidViewModel(context
 
     val categorydata:MutableLiveData<Categoriespojo> = MutableLiveData<Categoriespojo>()
 
-    @Mock
-   lateinit var categoryRepository:CategoryRepository
-
      fun getCategory(): MutableLiveData<Categoriespojo>
     {
-        if (this::categoryRepository.isInitialized)
-        {
-            Log.e("CategoryViewModel","Initialized")
-        }
-        else
-        {
-            Log.e("CategoryViewModel","not Initialized")
-        }
         return categorydata
     }
 
     suspend  fun setCategoryListData()
     {
         val list = arrayListOf<CategoriesDetailpojo>()
-       // val populatonData = MutableLiveData<PopulationCitiesListPojo>()
-        //val populatonData1 = MutableLiveData<PopulationCitiesListPojo>()
-        //val populationCountDetail = PopulationCountDetail()
-        val categoryDetailpojo =  CategoriesDetailpojo()
-       // val populationCitiesPojo = PopulationCitiesPojo("palwal","India", arrayListOf())
+        val categoryDetailpojo =  CategoriesDetailpojo("Dollar","USA",1)
         list.add(categoryDetailpojo)
         val categoriespojo = Categoriespojo(list)
         categorydata.value = categoriespojo

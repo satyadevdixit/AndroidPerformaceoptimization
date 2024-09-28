@@ -9,7 +9,6 @@ import javax.inject.Inject
 class CategoryRepository @Inject constructor(){
  val categorydata:MutableLiveData<Categoriespojo> = MutableLiveData<Categoriespojo>()
  val populationCitiesListPojo:MutableLiveData<PopulationCitiesListPojo> = MutableLiveData<PopulationCitiesListPojo>()
- val populationCitiesListPojo1:MutableLiveData<PopulationCitiesListPojo> = MutableLiveData<PopulationCitiesListPojo>()
 
     @Inject
     lateinit var backendApi: BackendApi
@@ -25,7 +24,6 @@ class CategoryRepository @Inject constructor(){
     {
         val result = backendApi.getPopulationCities()
         populationCitiesListPojo.value = result.body()
-      //  populationCitiesListPojo.postValue(result.body())
         return  populationCitiesListPojo
     }
 }

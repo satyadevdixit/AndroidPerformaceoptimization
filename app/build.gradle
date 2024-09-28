@@ -12,7 +12,7 @@ android {
 
     namespace 'com.example.androidperformanceoptimization'
     compileSdk 34
-
+    packagingOptions { resources.excludes.add("META-INF/*") }
 
 
     defaultConfig {
@@ -111,6 +111,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:5.2.0'
     //androidtestImplementation "org.mockito:mockito-core:2.25.0"
     //androidtestImplementation "org.mockito:mockito-inline:2.13.0"
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 }
 
 kapt {

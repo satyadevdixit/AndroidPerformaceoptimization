@@ -5,15 +5,15 @@ import androidx.lifecycle.Observer
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.androidperformanceoptimization.model.Categoriespojo
-import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
 import com.example.androidperformanceoptimization.viewmodel.CategoryViewModelTest
-import com.example.androidperformanceoptimization.viewmodel.PopulationCitiesViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import org.junit.jupiter.api.assertAll
+
 import org.junit.runner.RunWith
 
 
@@ -29,11 +29,13 @@ class RecylerViewActivityTest
 
         val observeCategory = Observer<Categoriespojo> {
                 it: Categoriespojo ->
-            val city = it.categories.get(0).name
-            val coutry = it.categories.get(0).count
-            val cityname = city
-            assertEquals("australiass", city)
-        }
+            val countryName = it.categories.get(0).countryName
+            val currency = it.categories.get(0).currency
+
+            assertAll("Should return address of Oracle's headquarter",
+                {assertEquals("USA", countryName)},
+                { assertEquals("Dollar", currency) })
+                }
 
         
         val recylerViewActivityViewModel = CategoryViewModelTest(ApplicationProvider.getApplicationContext())

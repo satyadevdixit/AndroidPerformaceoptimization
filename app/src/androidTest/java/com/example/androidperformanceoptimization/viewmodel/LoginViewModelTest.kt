@@ -32,14 +32,12 @@ class LoginViewModelTest {
     @Test
     fun validLoginCredentialsMatchOrNot()
     {
-    //  val  loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
         val result = loginViewModel.validateLoginCredentials("gmail.com","password")
         assertTrue(result)
     }
 
     @Test
     fun validateLoginCredentialsEmptyOrNot() {
-
        val result = loginViewModel.validateLoginCredentialsEmpty("","")
         assertTrue(result)
     }

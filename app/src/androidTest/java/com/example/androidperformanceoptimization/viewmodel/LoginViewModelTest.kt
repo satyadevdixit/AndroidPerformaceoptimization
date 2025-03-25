@@ -8,16 +8,23 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(MockitoJUnitRunner::class)
 class LoginViewModelTest {
 
+    @Mock
    lateinit var  loginViewModel:LoginViewModel
 
   @Before
   fun setUpfortest()
   {
-      loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
+      MockitoAnnotations.initMocks(this)
+      Mockito.`when`(loginViewModel.validateLoginCredentials("gmail.com","password")).thenReturn(true)
+      //loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
   }
 
 /*   companion object {

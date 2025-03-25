@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.androidperformanceoptimization.R
 import com.example.androidperformanceoptimization.databinding.ActivityDetailBinding
@@ -23,23 +24,24 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
        val binding : ActivityDetailBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        lifecycleScope.launch {populationCitiesViewModel.setData("","")
-            populationCitiesViewModel.getPopulationCities(false).observe(this@DetailActivity) { it: PopulationCitiesListPojo ->
-                populationCitiesViewModel.setData(
-                    it.populationCitiesList[intent.getIntExtra(
-                        "index",
-                        0
-                    )].city, it.populationCitiesList[intent.getIntExtra("index", 0)].country
-                )
-            }
+        lifecycleScope.launch {
+            setData( intent.getBundleExtra(
+                "data"))
         }
+
         binding.detail = populationCitiesViewModel
         binding.lifecycleOwner = this
+        binding.textViewCountryName.setOnClickListener { binding.textViewCityName.setText("palwal7") }
     }
 
+    fun setData(bundle: Bundle?)
+    {
+        bundle?.let {populationCitiesViewModel.setData(it.getString("countryname")!!,it.getString("currency")!!)  }
+    }
     override fun onPause() {
         super.onPause()
         Log.e("DetailActivity","onPause")
+        lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)
     }
 
     override fun onStart() {

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.assertAll
 import org.junit.runner.RunWith
 
 
-@RunWith(AndroidJUnit4::class)
+
 class RecylerViewActivityTest
 {
 
@@ -33,8 +33,10 @@ class RecylerViewActivityTest
             val currency = it.categories.get(0).currency
 
             assertAll("Should return address of Oracle's headquarter",
-                {assertEquals("USA", countryName)},
-                { assertEquals("Dollar", currency) })
+                {
+                    assertEquals("USA", countryName)},
+                {
+                    assertEquals("Dollar", currency) })
                 }
 
         

@@ -49,7 +49,10 @@ inner class ViewHolder(var binding: ListItemBinding,val context: Context):androi
         binding.category = categoriesItempojo
         binding.layoutCategoryListItem.setOnClickListener {
             val intent: Intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra("index", bindingAdapterPosition)
+            val bundle = Bundle()
+            bundle.putSerializable("currency",categoriesItempojo.currency)
+            bundle.putSerializable("countryname",categoriesItempojo.countryName)
+            intent.putExtra("data", bundle)
             context.startActivity(intent)
         }
 

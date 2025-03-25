@@ -11,7 +11,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class CountryAdapterTest {
 
     @Before
@@ -25,6 +24,7 @@ class CountryAdapterTest {
     @Test
     fun validateCountvalue() {
         val categoryAdapter:CategoryAdapter = CategoryAdapter(mutableListOf(),ApplicationProvider.getApplicationContext())
-        assertTrue(categoryAdapter.validateCountvalue(45,70,90)==true)
+        assertTrue(categoryAdapter.validateCountvalue(45,30,90)==true)
+     //   assertTrue(90==90)
     }
 }

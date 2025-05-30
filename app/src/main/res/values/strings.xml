@@ -44,5 +44,7 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_compose_practise">ComposePractise</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_main_activitycompose">MainActivitycompose</string>
 
 </resources>

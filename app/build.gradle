@@ -3,8 +3,6 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'org.jetbrains.kotlin.plugin.compose'  version("2.0.0")  apply(false)
-
 }
 
 
@@ -37,7 +35,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-         //   resValue("string", "base_url", properties['baseurl'])
+            //   resValue("string", "base_url", properties['baseurl'])
             //resValue("string", "zomato_api_key", properties['zomatoapikey'])
         }
     }
@@ -51,7 +49,6 @@ android {
 
     buildFeatures {
         dataBinding true
-        compose true
     }
 }
 

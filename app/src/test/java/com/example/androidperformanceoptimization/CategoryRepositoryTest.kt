@@ -1,4 +1,4 @@
-package com.example.androidperformanceoptimization.data.network.repo
+package com.example.androidperformanceoptimization
 
 import androidx.lifecycle.MutableLiveData
 import com.example.androidperformanceoptimization.data.network.BackendApi
@@ -30,10 +30,11 @@ class CategoryRepositoryTest @Inject constructor() {
     }
 
     @Test
-     fun getcategorydata() = runTest {
+     fun getcategorydata_emptyData(): Unit = runTest {
 
         Mockito.`when`(backendApi.getcategories()).thenReturn(Response.success(Categoriespojo()))
         assertEquals(true,backendApi.getcategories() is Response<Categoriespojo>)
+        assertEquals(1,backendApi.getcategories().body()?.categories?.size)
     }
 
     suspend fun getPopulationCitesCount(): Response<PopulationCitiesListPojo>

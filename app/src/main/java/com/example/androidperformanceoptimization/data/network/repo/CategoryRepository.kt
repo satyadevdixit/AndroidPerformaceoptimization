@@ -4,26 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import com.example.androidperformanceoptimization.data.network.BackendApi
 import com.example.androidperformanceoptimization.model.Categoriespojo
 import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
+import retrofit2.Response
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(){
- val categorydata:MutableLiveData<Categoriespojo> = MutableLiveData<Categoriespojo>()
- val populationCitiesListPojo:MutableLiveData<PopulationCitiesListPojo> = MutableLiveData<PopulationCitiesListPojo>()
 
     @Inject
     lateinit var backendApi: BackendApi
 
-   suspend fun getcategorydata():MutableLiveData<Categoriespojo>
+   suspend fun getcategorydata(): Response<Categoriespojo>
     {
-        val result = backendApi.getcategories()
-        categorydata.postValue(result.body())
-        return  categorydata
+        return  backendApi.getcategories()
     }
 
-    suspend fun getPopulationCitesCount():MutableLiveData<PopulationCitiesListPojo>
+    suspend fun getPopulationCitesCount(): Response<PopulationCitiesListPojo>
     {
-        val result = backendApi.getPopulationCities()
-        populationCitiesListPojo.value = result.body()
-        return  populationCitiesListPojo
+        return  backendApi.getPopulationCities()
     }
 }

@@ -13,6 +13,7 @@ class CategoryViewModel @Inject constructor(context:Application) : AndroidViewMo
     @Inject
     lateinit var categoryRepository: CategoryRepository
 
+
 suspend fun getCategory():MutableLiveData<Categoriespojo>
 {
     if (this::categoryRepository.isInitialized)
@@ -23,7 +24,9 @@ Log.e("CategoryViewModel","Initialized")
     {
         Log.e("CategoryViewModel","not Initialized")
     }
-return categoryRepository.getcategorydata()
+    val categorydata:MutableLiveData<Categoriespojo> = MutableLiveData<Categoriespojo>()
+    categorydata.postValue(categoryRepository.getcategorydata().body())
+return categorydata
 }
 
     override fun onCleared() {

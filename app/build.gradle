@@ -3,6 +3,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.compose'
 }
 
 
@@ -49,6 +50,7 @@ android {
 
     buildFeatures {
         dataBinding true
+        compose true
     }
 }
 

@@ -31,21 +31,6 @@ class LoginActiviy : AppCompatActivity() {
         val dataBinding:ActivityLoginActiviyBinding = DataBindingUtil.setContentView(this,R.layout.activity_login_activiy)
         dataBinding.loginviewmodel = loginViewModel
 
-
-       // {
-
-          /*  lifecycleScope.launch {
-                Log.d("loginactivity", "launch")
-            }
-
-            var data = lifecycleScope.async {
-                Log.d("loginactivity", "async 1")
-                delay(3000)
-                Log.d("loginactivity", "async 2")
-                4 + 9
-            }*/
-
-        //}
         lifecycleScope.launch { coroutineexample() }
     }
 

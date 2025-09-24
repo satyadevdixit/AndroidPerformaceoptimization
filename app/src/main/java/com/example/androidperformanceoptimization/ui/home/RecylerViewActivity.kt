@@ -28,13 +28,26 @@ class RecylerViewActivity : AppCompatActivity() {
         Log.e("MainActivity","onCreate")
         val binding : ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-       // categoryViewModel = ViewModelProvider(this).get(CategoryViewModel::class.java)
-        lifecycleScope.launch { categoryViewModel.getCategory().observe(this@RecylerViewActivity, Observer { it:Categoriespojo ->
+               getCategoryData(binding)
+    }
+
+
+    fun getCategoryData(binding: ActivityMainBinding)
+    {
+        lifecycleScope.launch { categoryViewModel.observeCategoryLiveData().observe(this@RecylerViewActivity, Observer { it:Categoriespojo ->
             val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList(),this@RecylerViewActivity)
             binding.rvItem.layoutManager = LinearLayoutManager(this@RecylerViewActivity,LinearLayoutManager.VERTICAL,false)
             binding.rvItem.adapter = categoryAdapter
             Log.e("MainactivityObser",it.toString())
-        }) }
+        })
+            categoryViewModel.getCategory()
+        }
+
+
+    }
+
+    fun setCategoryData()
+    {
 
     }
 

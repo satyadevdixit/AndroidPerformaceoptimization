@@ -24,17 +24,7 @@ class LoginViewModelTest {
   {
       MockitoAnnotations.initMocks(this)
       Mockito.`when`(loginViewModel.validateLoginCredentials("gmail.com","password")).thenReturn(true)
-      //loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
   }
-
-/*   companion object {
-       @BeforeClass
-       @JvmStatic
-       fun  setUp()
-       {
-            loginViewModel = LoginViewModel(ApplicationProvider.getApplicationContext())
-       }
-   }*/
 
     @Test
     fun validLoginCredentialsMatchOrNot()

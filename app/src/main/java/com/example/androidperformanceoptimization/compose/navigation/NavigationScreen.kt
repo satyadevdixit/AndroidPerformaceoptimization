@@ -1,0 +1,18 @@
+package com.example.composepractise.navigation
+
+enum class ScreenName{
+    LIST,
+    DETAIL,
+    SHOWINGLIST,
+    QUESTIONSCREEN,
+    WEATHERSCREEN,
+    WEATHERSCREENTOPAPPBAR,
+    SEARCHSCREEN,
+    READINGBOOK,
+    NAVIGATIONDRAWER,
+    REDCOLOR,
+    ORANGECOLOR,
+    BLUECOLOR,
+    COROUTINE,
+    RECOMPOSITION
+}

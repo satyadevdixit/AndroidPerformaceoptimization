@@ -46,10 +46,10 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
 
     fun validateLoginCredentials(email:String, password:String):Boolean
     {
-     /*if ((email.equals("gmail.com")) && (password.equals("password")))
-         return true*/
-
-        return true
+     if ((email.equals("gmail.com")) && (password.equals("password")))
+         return true
+        else
+            return false
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

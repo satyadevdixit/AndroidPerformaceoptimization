@@ -17,17 +17,21 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.androidperformanceoptimization.AppApplication
 import com.example.androidperformanceoptimization.data.network.BackendApi
 import com.example.androidperformanceoptimization.data.network.repo.CategoryRepository
+import com.example.androidperformanceoptimization.viewmodel.LoginViewModel
 import dagger.hilt.android.internal.Contexts.getApplication
 import getOrAwaitValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.setMain
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.RuntimeEnvironment
 import retrofit2.Response
 
-
+@RunWith(RobolectricTestRunner::class)
 class RecylerViewActivityTest {
 
     val testDispatcher = StandardTestDispatcher()
@@ -70,7 +74,11 @@ class RecylerViewActivityTest {
     @Test
     fun `getCategoryData handles empty category list`() {
         // Verify that when categoryViewModel.getCategory() returns a Categoriespojo with an empty categories list, the RecyclerView is displayed as empty and no errors occur.
-        // TODO implement test
+        val appContext = RuntimeEnvironment.getApplication()
+       val loginViewModel = LoginViewModel(appContext)
+
+        val result = loginViewModel.validateLoginCredentials("gmail.com","password")
+        Assert.assertEquals(true,result)
     }
 
     @Test

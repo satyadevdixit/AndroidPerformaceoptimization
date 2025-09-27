@@ -9,8 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.androidperformanceoptimization.R
 import com.example.androidperformanceoptimization.databinding.ActivityDetailBinding
-import com.example.androidperformanceoptimization.model.PopulationCitiesListPojo
-import com.example.androidperformanceoptimization.viewmodel.PopulationCitiesViewModel
+import com.example.androidperformanceoptimization.viewmodel.DetailActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class DetailActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var populationCitiesViewModel: PopulationCitiesViewModel
+    lateinit var populationCitiesViewModel: DetailActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +35,12 @@ class DetailActivity : AppCompatActivity() {
 
     fun setData(bundle: Bundle?)
     {
-        bundle?.let {populationCitiesViewModel.setData(it.getString("countryname")!!,it.getString("currency")!!)  }
+        if (populationCitiesViewModel.validatedata(bundle))
+            bundle?.let {populationCitiesViewModel.setData(it.getString("countryname")!!,it.getString("currency")!!)  }
     }
+
+
+
     override fun onPause() {
         super.onPause()
         Log.e("DetailActivity","onPause")

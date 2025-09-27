@@ -35,20 +35,17 @@ class RecylerViewActivity : AppCompatActivity() {
     fun getCategoryData(binding: ActivityMainBinding)
     {
         lifecycleScope.launch { categoryViewModel.observeCategoryLiveData().observe(this@RecylerViewActivity, Observer { it:Categoriespojo ->
-            val categoryAdapter: CategoryAdapter = CategoryAdapter(it.categories.toMutableList(),this@RecylerViewActivity)
-            binding.rvItem.layoutManager = LinearLayoutManager(this@RecylerViewActivity,LinearLayoutManager.VERTICAL,false)
-            binding.rvItem.adapter = categoryAdapter
-            Log.e("MainactivityObser",it.toString())
+            setCategoryData(it,binding)
         })
             categoryViewModel.getCategory()
         }
-
-
     }
 
-    fun setCategoryData()
+    fun setCategoryData(categoriespojo: Categoriespojo, binding: ActivityMainBinding)
     {
-
+        val categoryAdapter = CategoryAdapter(categoriespojo.categories.toMutableList(),this@RecylerViewActivity)
+        binding.rvItem.layoutManager = LinearLayoutManager(this@RecylerViewActivity,LinearLayoutManager.VERTICAL,false)
+        binding.rvItem.adapter = categoryAdapter
     }
 
     override fun onPause() {

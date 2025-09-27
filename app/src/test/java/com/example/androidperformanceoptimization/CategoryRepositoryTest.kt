@@ -15,30 +15,19 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class CategoryRepositoryTest @Inject constructor() {
-    /*val categorydata: MutableLiveData<Categoriespojo> = MutableLiveData<Categoriespojo>()
-    val populationCitiesListPojo: MutableLiveData<PopulationCitiesListPojo> =
-        MutableLiveData<PopulationCitiesListPojo>()
-    val populationCitiesListPojo1: MutableLiveData<PopulationCitiesListPojo> =
-        MutableLiveData<PopulationCitiesListPojo>()*/
 
     @Mock
     lateinit var backendApi: BackendApi
 
     @Before
-    fun setUp() {
+    fun setUp() = runTest{
         backendApi = Mockito.mock(BackendApi::class.java)
+        Mockito.`when`(backendApi.getcategories()).thenReturn(Response.success(Categoriespojo()))
     }
 
     @Test
      fun getcategorydata_emptyData(): Unit = runTest {
-
-        Mockito.`when`(backendApi.getcategories()).thenReturn(Response.success(Categoriespojo()))
         assertEquals(true,backendApi.getcategories() is Response<Categoriespojo>)
         assertEquals(1,backendApi.getcategories().body()?.categories?.size)
-    }
-
-    suspend fun getPopulationCitesCount(): Response<PopulationCitiesListPojo>
-    {
-        return  backendApi.getPopulationCities()
     }
 }

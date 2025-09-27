@@ -6,7 +6,7 @@
     <data>
         <variable
             name="detail"
-            type="com.example.androidperformanceoptimization.viewmodel.PopulationCitiesViewModel"/>
+            type="com.example.androidperformanceoptimization.viewmodel.DetailActivityViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_category_list_item"

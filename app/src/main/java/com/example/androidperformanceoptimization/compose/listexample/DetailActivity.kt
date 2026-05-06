@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -75,7 +76,7 @@ fun mainContent(countdata: Int,updateValue:(Int)->Unit)
             )
 
             Column {
-                Text(text = "Boost")
+                Text(text = stringResource(id = R.string.title_activity_detail))
                 Row(modifier = Modifier.padding(0.dp,5.dp,0.dp,0.dp)) {
                     Text(text = countdata.toString(), modifier = Modifier.padding(0.dp, 0.dp, 10.dp, 0.dp))
                     Text(text = "Running")
@@ -118,11 +119,11 @@ count  = count.plus(1)
             contentColor = Color.White,
             disabledContainerColor = Color.Gray,
             disabledContentColor = Color.DarkGray
-        ), elevation = ButtonDefaults.buttonElevation(10.dp),
+        ), elevation = ButtonDefaults.buttonElevation(dimensionResource(id = R.dimen.dp_10)),
         shape = RectangleShape,
 
         ) {
-        Text(text = "-")
+        Text(text = stringResource(id = R.string.app_name))
     }
 
     Switch(

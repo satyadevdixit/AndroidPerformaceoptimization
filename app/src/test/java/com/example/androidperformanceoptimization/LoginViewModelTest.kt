@@ -31,6 +31,6 @@ class LoginViewModelTest {
     @Test
     fun validateLoginCredentialsEmptyOrNot() {
        val result = loginViewModel.validateLoginCredentialsEmpty("","")
-        assertEquals(true,result)
+        assertEquals(false,result)
     }
 }

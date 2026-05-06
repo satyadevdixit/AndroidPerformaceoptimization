@@ -7,7 +7,9 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.androidperformanceoptimization.ui.home.RecylerViewActivity
+import kotlinx.coroutines.launch
 
 class LoginViewModel(val context: Application) :AndroidViewModel(context), Observable {
 
@@ -18,7 +20,11 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
     val userPassword = MutableLiveData<String>()
     fun signInButtonClick()
     {
-         if (validateLoginCredentials(userEmailId.value.toString() ,userPassword.value.toString()))
+
+        viewModelScope.launch {  }
+
+
+        /* if (validateLoginCredentials(userEmailId.value.toString() ,userPassword.value.toString()))
          {
                 val intent = Intent(context,RecylerViewActivity::class.java)
              intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
@@ -27,7 +33,7 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
          else
          {
               Toast.makeText(context,"Invalid Credentials OR Please enter Credentials",Toast.LENGTH_SHORT).show()
-         }
+         }*/
         val intent = Intent(context,RecylerViewActivity::class.java)
         intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
@@ -46,10 +52,12 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
 
     fun validateLoginCredentials(email:String, password:String):Boolean
     {
-     if ((email.equals("gmail.com")) && (password.equals("password")))
+     /*if ((email.equals("gmail.com")) && (password.equals("password")))
          return true
         else
-            return false
+            return false*/
+
+        return true
     }
 
     override fun addOnPropertyChangedCallback(callback: Observable.OnPropertyChangedCallback?) {

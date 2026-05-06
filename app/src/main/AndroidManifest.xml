@@ -16,16 +16,10 @@
         android:theme="@style/Theme.AndroidPerformanceoptimization"
         tools:targetApi="31">
         <activity
-            android:name=".compose.ComposeActivity"
-            android:exported="true"
+            android:name=".ui.home.LoginActiviy"
+            android:exported="false"
             android:label="@string/title_activity_compose"
-            android:theme="@style/Theme.AndroidPerformanceoptimization">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.AndroidPerformanceoptimization" />
         <activity
             android:name=".ui.home.RecylerViewActivity"
             android:exported="false" />
@@ -37,8 +31,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.home.LoginActiviy"
-            android:exported="true">
+            android:name=".compose.ComposeActivity"
+            android:exported="true"
+            android:label="@string/title_activity_compose"
+            android:theme="@style/Theme.AndroidPerformanceoptimization">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,22 +1,30 @@
 package com.example.androidperformanceoptimization.viewmodel
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.androidperformanceoptimization.compose.login.MainDispatcherRule
 import com.example.androidperformanceoptimization.data.network.repo.CategoryRepository
+import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
 import com.example.androidperformanceoptimization.model.Categoriespojo
+import getOrAwaitValue
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import retrofit2.Response
 
 @RunWith(RobolectricTestRunner::class)
 class CategoryViewModelTest {
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
 
     private lateinit var categoryViewModel: CategoryViewModel
 
@@ -28,33 +36,62 @@ class CategoryViewModelTest {
        categoryRepository = Mockito.mock(CategoryRepository::class.java)
             Mockito.`when`(categoryRepository.getcategorydata())
                 .thenReturn(Response.success(null))
+
+        val appContext = RuntimeEnvironment.getApplication()
+        categoryViewModel = CategoryViewModel(appContext)
         }
 
 
     @Test
     fun validateResponse() = runTest {
-        // Verify that categoryRepository is initialized before being accessed by getCategoryRepository(). 
-        // This can be done by checking if this::categoryRepository.isInitialized returns true.
-        val appContext = RuntimeEnvironment.getApplication()
-        categoryViewModel = CategoryViewModel(appContext)
         assertEquals(false,categoryViewModel.validateData(categoryRepository.getcategorydata()))
     }
 
     @Test
+    fun validateResponse_returnsTrueForSuccessfulResponseWithBody() {
+        val response = Response.success(
+            Categoriespojo(
+                arrayListOf(CategoriesDetailpojo(currency = "INR", countryName = "India"))
+            )
+        )
+
+        assertEquals(true, categoryViewModel.validateData(response))
+    }
+
+    @Test
+    fun getCategory_postsSuccessfulRepositoryDataThenDemoData() = runTest {
+        val expected = Categoriespojo(
+            arrayListOf(CategoriesDetailpojo(currency = "INR", countryName = "India", count = 70))
+        )
+        Mockito.`when`(categoryRepository.getcategorydata()).thenReturn(Response.success(expected))
+        categoryViewModel.categoryRepository = categoryRepository
+
+        categoryViewModel.getCategory()
+
+        val value = categoryViewModel.categorydata.getOrAwaitValue()
+        assertEquals(2, value.categories.size)
+        assertEquals("India", value.categories[1].countryName)
+        assertEquals(10, value.categories[1].count)
+    }
+
+    @Test
+     fun `Test launch Coroutine`()
+    {
+        categoryViewModel.launchCoroutine()
+       assertEquals(2,categoryViewModel.categorydata.getOrAwaitValue().categories.size)
+       assertEquals(10,categoryViewModel.categorydata.getOrAwaitValue().categories.get(1).count)
+    }
+
+    @Test
     fun `CategoryRepository Correct Instance Return`() {
-        // Ensure that getCategoryRepository() returns the same instance of CategoryRepository 
-        // that was injected into the CategoryViewModel. 
-        // This can be verified by comparing the returned object with the injected categoryRepository field.
-        // TODO implement test
+        categoryViewModel.categoryRepository = categoryRepository
+
+        assertEquals(categoryRepository, categoryViewModel.categoryRepository)
     }
 
     @Test
     fun `CategoryRepository Not Initialized Scenario`() {
-        // Test the behavior if getCategoryRepository() is called when categoryRepository has not been initialized. 
-        // While the current code doesn't have a direct getter named `getCategoryRepository()`, 
-        // this scenario is relevant for the `getCategory()` method's usage of `categoryRepository`. 
-        // The test should confirm that the appropriate Log.e message ('CategoryViewModel', 'not Initialized') is printed.
-        // TODO implement test
+        assertEquals(null, categoryViewModel.categorydata.value)
     }
 
     @Test

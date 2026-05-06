@@ -4,8 +4,12 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'org.jetbrains.kotlin.plugin.compose'
+    id 'jacoco'
 }
 
+jacoco {
+    toolVersion = '0.8.12'
+}
 
 android {
     def properties = new Properties()
@@ -31,10 +35,12 @@ android {
             resValue("string", "base_url","\"https://countriesnow.space/api/v0.1/\"")
 //            resValue("string", "zomato_api_key", properties['zomatoapikey'])
             minifyEnabled false
+            testCoverageEnabled true
         }
 
         release {
-            minifyEnabled false
+            resValue("string", "base_url","\"https://countriesnow.space/api/v0.1/\"")
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //   resValue("string", "base_url", properties['baseurl'])
             //resValue("string", "zomato_api_key", properties['zomatoapikey'])
@@ -52,6 +58,61 @@ android {
         dataBinding true
         compose true
     }
+
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
+        }
+    }
+}
+
+tasks.register('jacocoDebugUnitTestReport', JacocoReport) {
+    dependsOn 'testDebugUnitTest'
+
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+
+    def excludes = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            '**/*Test*.*',
+            '**/android/databinding/**',
+            '**/androidx/databinding/**',
+            '**/BR.*',
+            '**/*Binding.*',
+            '**/*BindingImpl.*',
+            '**/*_Factory.*',
+            '**/*_MembersInjector.*',
+            '**/*_HiltModules*.*',
+            '**/*Hilt*.*',
+            '**/Hilt_*.*',
+            '**/Dagger*.*',
+            '**/*Component*.*',
+            '**/*Module*.*',
+            '**/*ComposableSingletons*.*'
+    ]
+
+    classDirectories.setFrom(files([
+            fileTree(dir: layout.buildDirectory.dir('intermediates/javac/debug/classes'), excludes: excludes),
+            fileTree(dir: layout.buildDirectory.dir('tmp/kotlin-classes/debug'), excludes: excludes)
+    ]))
+
+    sourceDirectories.setFrom(files([
+            'src/main/java'
+    ]))
+
+    executionData.setFrom(fileTree(dir: layout.buildDirectory, includes: [
+            'jacoco/testDebugUnitTest.exec',
+            'outputs/unit_test_code_coverage/debugUnitTest/testDebugUnitTest.exec'
+    ]))
 }
 
 

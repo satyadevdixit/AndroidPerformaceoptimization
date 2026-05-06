@@ -27,7 +27,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,17 +41,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.androidperformanceoptimization.compose.ui.theme.AndroidPerformanceoptimizationTheme
-import com.example.androidperformanceoptimization.ui.home.RecylerViewActivity
+import com.example.androidperformanceoptimization.ui.home.RecyclerViewActivity
 
 @Composable
 fun LoginRoute(viewModel: LoginComposeViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
     LaunchedEffect(uiState.isLoginSuccessful) {
         if (uiState.isLoginSuccessful) {
-            context.startActivity(Intent(context, RecylerViewActivity::class.java))
+            context.startActivity(Intent(context, RecyclerViewActivity::class.java))
             viewModel.onLoginNavigationHandled()
         }
     }

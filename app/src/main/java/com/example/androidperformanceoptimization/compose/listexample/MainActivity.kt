@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -150,7 +150,14 @@ class MainActivity : ComponentActivity() {
             "C++", "C", "C#", "Java", "Kotlin", "Dart", "Python", "Javascript", "SpringBoot",
             "XML", "Dart", "Node JS", "Typescript", "Dot Net", "GoLang", "MongoDb",
         )
-        LazyColumn { items(languages) { it -> columnExample(it) } }
+        LazyColumn {
+            itemsIndexed(
+                items = languages,
+                key = { index, item -> "$index-$item" }
+            ) { _, item ->
+                columnExample(item)
+            }
+        }
 
     }
 

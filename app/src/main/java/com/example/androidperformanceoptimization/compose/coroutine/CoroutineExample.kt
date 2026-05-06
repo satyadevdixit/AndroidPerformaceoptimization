@@ -1,8 +1,6 @@
 package com.example.composepractise.coroutine
 
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.DrawerState
@@ -18,14 +16,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.composepractise.navigationdrawer.createAppBar
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -54,25 +49,18 @@ Scaffold(topBar = { createAppBar("Coroutine",drawerState) }) {
 
 @Composable
 fun launchedEffect(counter: MutableState<Int>) {
-    Log.d("launchedeffect_recompose","launch method called = " +counter.value.toString())
     Surface(modifier = Modifier.padding(300.dp)) {
         Text(text = "lunched effects")
     }
-val context = LocalContext.current
-//Toast.makeText(context,"launched",Toast.LENGTH_SHORT).show()
     LaunchedEffect(counter.value) {
         delay(5000)
-        Log.d("launchedeffect_1", "launch execute = " +counter.value.toString())
     }
 }
 
 @Composable
 fun disposalEffect(counter: MutableState<Int>)
 {
-    Log.d("launchedeffect_disposalEffectrecompose","disposable method called = " + counter.value.toString())
 DisposableEffect(counter) {
-    Log.d("launchedeffect_disposal","disposable effect called = "+ counter.value.toString())
-    onDispose {
-        Log.d("launchedeffect_disposal_2", "onDispose execute = " +counter.value.toString()) }
+    onDispose { }
 }
 }

@@ -4,21 +4,17 @@ import android.app.Application
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.androidperformanceoptimization.data.network.repo.CategoryRepository
-import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-class DetailActivityViewModel @Inject constructor(context:Application):AndroidViewModel(context) {
+@HiltViewModel
+class DetailActivityViewModel @Inject constructor(context: Application) : AndroidViewModel(context) {
 
-   @Inject
-   lateinit var categoryRepository: CategoryRepository
    var city = MutableLiveData<String>()
    var country = MutableLiveData<String>()
 
      fun setData(cityName:String, countryName:String)
     {
-        viewModelScope.launch {  }
         city.value = cityName
         country.value = countryName
     }

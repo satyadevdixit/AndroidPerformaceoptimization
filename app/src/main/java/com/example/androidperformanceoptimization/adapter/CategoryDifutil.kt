@@ -4,41 +4,36 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DiffUtil
 import com.example.androidperformanceoptimization.model.CategoriesDetailpojo
 
+object CategoryDiffUtil : DiffUtil.ItemCallback<CategoriesDetailpojo>() {
 
-class CategoryDifutil(val newlist:List<CategoriesDetailpojo>, val oldlist:List<CategoriesDetailpojo>): DiffUtil.Callback(){
+    const val ARG_COUNTRY_NAME = "arg.country.name"
+    const val ARG_COUNT = "arg.count"
 
-    companion object{
-         val ARG_DONE = "arg.done"
+    override fun areItemsTheSame(
+        oldItem: CategoriesDetailpojo,
+        newItem: CategoriesDetailpojo
+    ): Boolean {
+        return oldItem.currency == newItem.currency && oldItem.countryName == newItem.countryName
     }
 
-    override fun getOldListSize(): Int {
-        return oldlist.size
+    override fun areContentsTheSame(
+        oldItem: CategoriesDetailpojo,
+        newItem: CategoriesDetailpojo
+    ): Boolean {
+        return oldItem == newItem
     }
 
-    override fun getNewListSize(): Int {
-        return newlist.size
-    }
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldlist[oldItemPosition].currency == newlist[newItemPosition].currency
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return when{
-            oldlist[oldItemPosition].currency==newlist[newItemPosition].currency ->true
-            oldlist[oldItemPosition].countryName == newlist[newItemPosition].countryName ->true
-            else -> false
+    override fun getChangePayload(
+        oldItem: CategoriesDetailpojo,
+        newItem: CategoriesDetailpojo
+    ): Any? {
+        val diff = Bundle()
+        if (oldItem.countryName != newItem.countryName) {
+            diff.putString(ARG_COUNTRY_NAME, newItem.countryName)
         }
-    }
-
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        if (oldlist[oldItemPosition].countryName == newlist[newItemPosition].countryName) {
-           return super.getChangePayload(oldItemPosition, newItemPosition)
-        } else {
-            val diff = Bundle()
-            diff.putString(ARG_DONE, newlist[newItemPosition].countryName)
+        if (oldItem.count != newItem.count) {
+            diff.putInt(ARG_COUNT, newItem.count)
         }
-        return super.getChangePayload(oldItemPosition, newItemPosition)
+        return if (diff.isEmpty) null else diff
     }
-
 }

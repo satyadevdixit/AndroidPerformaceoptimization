@@ -2,31 +2,23 @@ package com.example.androidperformanceoptimization.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import com.example.androidperformanceoptimization.R
 import com.example.androidperformanceoptimization.databinding.ActivityDetailBinding
 import com.example.androidperformanceoptimization.viewmodel.DetailActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var populationCitiesViewModel: DetailActivityViewModel
+    private val populationCitiesViewModel: DetailActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        val binding : ActivityDetailBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        lifecycleScope.launch {
-            setData( intent.getBundleExtra(
-                "data"))
-        }
+        setData(intent.getBundleExtra("data"))
 
         binding.detail = populationCitiesViewModel
         binding.lifecycleOwner = this
@@ -35,94 +27,9 @@ class DetailActivity : AppCompatActivity() {
 
     fun setData(bundle: Bundle?)
     {
-        if (populationCitiesViewModel.validatedata(bundle))
-            bundle?.let {populationCitiesViewModel.setData(it.getString("countryname")!!,it.getString("currency")!!)  }
+        if (!populationCitiesViewModel.validatedata(bundle)) return
+        val countryName = bundle?.getString("countryname") ?: return
+        val currency = bundle.getString("currency") ?: return
+        populationCitiesViewModel.setData(countryName, currency)
     }
-
-
-
-    override fun onPause() {
-        super.onPause()
-        Log.e("DetailActivity","onPause")
-        lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.e("DetailActivity","onStart")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.e("DetailActivity","onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e("DetailActivity","onDestroy")
-    }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        Log.e("DetailActivity","onSaveInstanceState PersistableBundle")
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        Log.e("DetailActivity","onSaveInstanceState")
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        Log.e("DetailActivity","onRestoreInstanceState")
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onRestoreInstanceState(savedInstanceState, persistentState)
-        Log.e("DetailActivity","onRestoreInstanceState PersistableBundle")
-    }
-
-    override fun onPostResume() {
-        super.onPostResume()
-        Log.e("DetailActivity","onPostResume")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.e("DetailActivity","onRestart")
-    }
-
-
-    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
-        super.onTopResumedActivityChanged(isTopResumedActivity)
-        Log.e("DetailActivity","onTopResumedActivityChanged")
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        Log.e("DetailActivity","onLowMemory")
-    }
-
-    override fun onCreateDescription(): CharSequence? {
-        return super.onCreateDescription()
-        Log.e("DetailActivity","onCreateDescription")
-    }
-
-
-    override fun onPostCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onPostCreate(savedInstanceState, persistentState)
-        Log.e("DetailActivity","onPostCreate")
-    }
-
-    override fun onContentChanged() {
-        super.onContentChanged()
-        Log.e("DetailActivity","onContentChanged")
-    }
-
-    override fun onTrimMemory(level: Int) {
-        super.onTrimMemory(level)
-        Log.e("DetailActivity","onTrimMemory")
-    }
-
-
 }

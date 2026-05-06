@@ -7,9 +7,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.Observable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.example.androidperformanceoptimization.ui.home.RecylerViewActivity
-import kotlinx.coroutines.launch
+import com.example.androidperformanceoptimization.ui.home.RecyclerViewActivity
 
 class LoginViewModel(val context: Application) :AndroidViewModel(context), Observable {
 
@@ -20,21 +18,11 @@ class LoginViewModel(val context: Application) :AndroidViewModel(context), Obser
     val userPassword = MutableLiveData<String>()
     fun signInButtonClick()
     {
-
-        viewModelScope.launch {  }
-
-
-        /* if (validateLoginCredentials(userEmailId.value.toString() ,userPassword.value.toString()))
-         {
-                val intent = Intent(context,RecylerViewActivity::class.java)
-             intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
-             context.startActivity(intent)
-         }
-         else
-         {
-              Toast.makeText(context,"Invalid Credentials OR Please enter Credentials",Toast.LENGTH_SHORT).show()
-         }*/
-        val intent = Intent(context,RecylerViewActivity::class.java)
+        if (!validateLoginCredentialsEmpty(userEmailId.value.orEmpty(), userPassword.value.orEmpty())) {
+            Toast.makeText(context, "Invalid credentials or empty fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val intent = Intent(context,RecyclerViewActivity::class.java)
         intent.apply { this.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) }
         context.startActivity(intent)
     }

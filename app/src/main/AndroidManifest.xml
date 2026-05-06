@@ -16,12 +16,12 @@
         android:theme="@style/Theme.AndroidPerformanceoptimization"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.LoginActiviy"
+            android:name=".ui.home.LoginActivity"
             android:exported="false"
             android:label="@string/title_activity_compose"
             android:theme="@style/Theme.AndroidPerformanceoptimization" />
         <activity
-            android:name=".ui.home.RecylerViewActivity"
+            android:name=".ui.home.RecyclerViewActivity"
             android:exported="false" />
         <activity
             android:name=".ui.home.DetailActivity"

@@ -61,19 +61,10 @@ import com.example.composepractise.navigationdrawer.createAppBar
 import com.example.composepractise.utility.showAlertDialog
 import com.example.composepractise.utility.showBottomSheet
 
-var weatherViewModel: WeatherViewModel? = null
-
-
-class WeatherListScreen {
-    fun getViewModel(): WeatherViewModel? {
-        return weatherViewModel
-    }
-}
-
 @Composable
-fun observeSearchDetails()
+fun observeSearchDetails(weatherViewModel: WeatherViewModel)
 {
-    var searchDetailQuery  =   weatherViewModel!!.searchDetailLiveData.observeAsState()
+    val searchDetailQuery = weatherViewModel.searchDetailLiveData.observeAsState()
     if (!searchDetailQuery.value.toString().equals("null")) {
         Text(text = searchDetailQuery.value.toString())
     }
@@ -83,14 +74,28 @@ fun observeSearchDetails()
 @Composable
 fun weatherMainView(navController: NavController,drawerState: DrawerState)
 {
-    weatherViewModel = viewModel(WeatherViewModel::class.java)
-topAppBar(navController, drawerState)
+    val weatherViewModel = viewModel(WeatherViewModel::class.java)
+    val searchQuery = navController.currentBackStackEntry
+        ?.savedStateHandle
+        ?.getLiveData<String>("weather_search_query")
+        ?.observeAsState()
+        ?.value
+
+    if (!searchQuery.isNullOrBlank()) {
+        weatherViewModel.searchDetailMutableLiveData.value = searchQuery
+    }
+
+    topAppBar(navController, drawerState, weatherViewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun topAppBar(navController: NavController, drawerState: DrawerState) {
+fun topAppBar(
+    navController: NavController,
+    drawerState: DrawerState,
+    weatherViewModel: WeatherViewModel
+) {
     var dropDownVisible = remember { mutableStateOf(false) }
     var dismissAlertDialogState = remember { mutableStateOf(false) }
     var bottomSheetState = remember { mutableStateOf(false) }
@@ -107,10 +112,13 @@ fun topAppBar(navController: NavController, drawerState: DrawerState) {
                 modifier = Modifier.fillMaxWidth()
                     .padding(10.dp),
             )
-observeSearchDetails()
+observeSearchDetails(weatherViewModel)
             showingSunSetTiming()
             LazyColumn {
-                items(weatherViewModel!!.getWeatherDayList()){
+                items(
+                    items = weatherViewModel.getWeatherDayList(),
+                    key = { it.day }
+                ){
                     it-> listItemView(it)
                 }
             }

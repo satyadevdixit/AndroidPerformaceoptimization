@@ -43,14 +43,12 @@ import com.example.composepractise.navigationdrawer.createAppBar
 import com.example.composepractise.navigationdrawer.createMenuItems
 import com.example.androidperformanceoptimization.R
 
-var  questionViewModel: QuestionViewModel? = null
-
 @Composable
 fun mainViewQuestionScreen(drawerState: DrawerState, navController: NavController){
     var selectedOption = remember { mutableStateOf(0) }
     var questionCounter = remember { mutableStateOf(0) }
-    questionViewModel = viewModel(QuestionViewModel::class.java)
-    questionViewModel?.getQuestionsList()
+    val questionViewModel = viewModel(QuestionViewModel::class.java)
+    questionViewModel.getQuestionsList()
         ?.let { showQuestionCounter(it,selectedOption,questionCounter,drawerState,navController) }
 }
 

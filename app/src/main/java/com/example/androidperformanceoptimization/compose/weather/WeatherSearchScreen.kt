@@ -54,8 +54,9 @@ showAlertDialog(dismissAlertDialogState,dropDownVisible)
         }
     }
 
-    var weatherViewModel = WeatherListScreen().getViewModel()
-    weatherViewModel?.searchDetailMutableLiveData?.value = searchValue.value
+    navController.previousBackStackEntry
+        ?.savedStateHandle
+        ?.set("weather_search_query", searchValue.value)
 }
 
 @Composable

@@ -6,44 +6,42 @@ import com.example.androidperformanceoptimization.data.network.interceptor.Retro
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.ViewComponent
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class RetrofirConfiguration @Inject constructor(){
+object RetrofitConfiguration {
 
 @Singleton
     @Provides
-    fun provideokttp(retrofitInterceptor: RetrofitInterceptor):OkHttpClient
-    {
-        return OkHttpClient.Builder().addInterceptor(retrofitInterceptor).build()
+    fun provideOkHttp(retrofitInterceptor: RetrofitInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(retrofitInterceptor)
+            .build()
     }
 
 @Singleton
         @Provides
-        fun provideretrofitobject(okHttpClient: OkHttpClient,@ApplicationContext context: Context): Retrofit {
-
-            return Retrofit.Builder().baseUrl(context.resources.getString(R.string.base_url))
+        fun provideRetrofitObject(
+            okHttpClient: OkHttpClient,
+            @ApplicationContext context: Context
+        ): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl(context.resources.getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
-               .client(okHttpClient)
-                // we need to add converter factory to
-                // convert JSON object to Java object
+                .client(okHttpClient)
                 .build()
         }
 
 
 @Singleton
     @Provides
-    fun getCategoryapi(retrofit: Retrofit): BackendApi {
+    fun getCategoryApi(retrofit: Retrofit): BackendApi {
         return retrofit.create(BackendApi::class.java)
     }
 
